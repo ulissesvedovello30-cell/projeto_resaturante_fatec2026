@@ -27,3 +27,10 @@ class ListaEncadeada:
                     return
                 anterior = atual
                 atual = atual.get_apontar_o_proximo()
+
+
+    def listar(self):
+        atual = self.__head
+        while atual is not None:
+            print(atual.get_dados())
+            atual = atual.get_apontar_o_proximo()
