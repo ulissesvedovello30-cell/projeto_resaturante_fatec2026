@@ -39,7 +39,7 @@ class Comanda:
         return self.__numero_comanda
 
     def fechar_conta(self, estoque, forma_pagamento):
-        # soma o preço de venda (do estoque) de cada item pedido na comanda
+        # soma o preço de venda de cada item pedido na comanda
         total = 0
         for item in self.__refeicoes.obter_todos():
             total += estoque.get_preco(item)

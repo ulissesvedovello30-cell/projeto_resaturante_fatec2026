@@ -24,6 +24,23 @@ def gerar_comandas_aleatorias(gerenciador, quantidade):
         gerenciador.abrir_comanda(comanda)
 
 
+def popular_cardapio_fixo(estoque):
+    # cardápio fixo com preço real, pra não precisar cadastrar produto na mão na demo
+    cardapio = [
+        ("Feijoada", 15.0, 35.0),
+        ("Picanha", 25.0, 55.0),
+        ("Lasanha", 12.0, 28.0),
+        ("Salada Caesar", 8.0, 20.0),
+        ("Frango Grelhado", 10.0, 24.0),
+        ("Coca Cola", 3.0, 7.0),
+        ("Suco", 2.5, 6.0),
+        ("Água", 1.5, 4.0),
+    ]
+    for nome, preco_compra, preco_venda in cardapio:
+        produto = Produto(nome, preco_compra, preco_venda, "01/09/2026", "01/03/2027", 50)
+        estoque.enfileirar(produto)
+
+
 def gerar_estoque_aleatorio(estoque, quantidade):
     # cria N produtos aleatórios e enfileira no estoque (Fila)
     for _ in range(quantidade):

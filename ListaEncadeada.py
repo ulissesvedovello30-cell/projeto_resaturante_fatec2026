@@ -22,8 +22,6 @@ class ListaEncadeada:
             # o item procurado é o próprio head: só pula pro próximo
             self.__head = self.__head.get_apontar_o_proximo()
         else:
-            # precisa guardar o nó anterior também, pois é ele quem vai
-            # "pular" o nó removido, reconectando a corrente
             anterior = self.__head
             atual = self.__head.get_apontar_o_proximo()
             while atual is not None:

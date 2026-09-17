@@ -8,9 +8,9 @@ from Bebida import FormaPagamento
 
 gerenciador = GerenciadorComandas()
 estoque = Fila()
-popular_cardapio_fixo(estoque)  # já deixa o cardápio (refeições e bebidas) com preço, pronto pra demo
+popular_cardapio_fixo(estoque)  # já deixa o cardápio com preço
 
-# esse menu interativo é para garçons e gerente do restaurante para abrir ou fechar comandas
+# esse menu interativo é para garçons e gerentes do restaurante para abrir ou fechar comandas
 # e controle de estoque do restaurante
 while True:
     print("\n--- MENU ---")
@@ -18,15 +18,14 @@ while True:
     print("2 - Adicionar item a uma comanda")
     print("3 - Remover item de uma comanda")
     print("4 - Mostrar uma comanda")
-    print("5 - Fechar comanda")
+    print("5 - Fechar conta / pagamento")
     print("6 - Adicionar produto ao estoque")
     print("7 - Editar quantidade de estoque")
     print("8 - Listar estoque")
     print("9 - Popular com dados aleatorios (Faker)")
     print("10 - Salvar dados em arquivo (pickle)")
     print("11 - Carregar dados de arquivo (pickle)")
-    print("12 - Fechar conta / pagamento")
-    print("13 - Ver cardapio (produtos e precos)")
+    print("12 - Ver cardapio (produtos e precos)")
     print("0 - Sair")
     opcao = input("Escolha uma opção: ")
 
@@ -67,8 +66,17 @@ while True:
         if comanda is None:
             print("Comanda não encontrada.")
         else:
-            gerenciador.fechar_comanda(comanda)
-            print("Comanda fechada.")
+            print("Formas de pagamento aceitas:")
+            for forma in FormaPagamento:
+                print(f"- {forma.value}")
+            forma_pagamento = input("Escolha a forma de pagamento: ")
+            valores_validos = [f.value for f in FormaPagamento]
+            if forma_pagamento not in valores_validos:
+                print("Forma de pagamento inválida.")
+            else:
+                comanda.fechar_conta(estoque, forma_pagamento)
+                gerenciador.fechar_comanda(comanda)
+                print("Pagamento realizado e comanda fechada.")
 
     elif opcao == "6":
         nome = input("Nome do produto: ")
@@ -104,23 +112,6 @@ while True:
         print("Dados carregados com sucesso.")
 
     elif opcao == "12":
-        comanda = gerenciador.buscar_comanda(int(input("Número da comanda: ")))
-        if comanda is None:
-            print("Comanda não encontrada.")
-        else:
-            print("Formas de pagamento aceitas:")
-            for forma in FormaPagamento:
-                print(f"- {forma.value}")
-            forma_pagamento = input("Escolha a forma de pagamento: ")
-            valores_validos = [f.value for f in FormaPagamento]
-            if forma_pagamento not in valores_validos:
-                print("Forma de pagamento inválida.")
-            else:
-                comanda.fechar_conta(estoque, forma_pagamento)
-                gerenciador.fechar_comanda(comanda)
-                print("Pagamento realizado e comanda fechada.")
-
-    elif opcao == "13":
         estoque.ver_cardapio()
 
     elif opcao == "0":
