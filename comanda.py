@@ -37,3 +37,13 @@ class Comanda:
 # get de busca da comanda
     def get_numero(self):
         return self.__numero_comanda
+
+    def fechar_conta(self, estoque):
+        # soma o preço de venda (do estoque) de cada item pedido na comanda
+        total = 0
+        for item in self.__refeicoes.obter_todos():
+            total += estoque.get_preco(item)
+        for item in self.__bebidas.obter_todos():
+            total += estoque.get_preco(item)
+        print(f"Total da comanda {self.__numero_comanda} ({self.__nome_cliente}): R$ {total:.2f}")
+        return total

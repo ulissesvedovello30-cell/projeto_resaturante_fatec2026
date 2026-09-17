@@ -30,6 +30,15 @@ class Fila:
             print(atual.get_dados().get_nome())
             atual = atual.get_apontar_o_proximo()
 
+    def get_preco(self, nome_produto):
+        # busca o preço de venda de um produto pelo nome, usado no fechamento da conta
+        atual = self.__head
+        while atual is not None:
+            if atual.get_dados().get_nome() == nome_produto:
+                return atual.get_dados().get_preco_venda()
+            atual = atual.get_apontar_o_proximo()
+        return 0
+
     def editar_quantidade(self, nome_produto, nova_quantidade):
         atual = self.__head
         while atual is not None:

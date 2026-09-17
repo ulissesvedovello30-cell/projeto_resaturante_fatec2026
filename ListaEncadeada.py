@@ -41,6 +41,15 @@ class ListaEncadeada:
             print(atual.get_dados())
             atual = atual.get_apontar_o_proximo()
 
+    def obter_todos(self):
+        # devolve os dados da lista como uma lista comum, só pra facilitar somas/relatórios
+        itens = []
+        atual = self.__head
+        while atual is not None:
+            itens.append(atual.get_dados())
+            atual = atual.get_apontar_o_proximo()
+        return itens
+
     def buscar(self, condicao):
         # condicao é uma função que recebe um dado e devolve True/False;
         # devolve o primeiro dado que bate com a condição, ou None se não achar

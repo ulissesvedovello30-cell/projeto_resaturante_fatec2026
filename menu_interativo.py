@@ -23,6 +23,7 @@ while True:
     print("9 - Popular com dados aleatorios (Faker)")
     print("10 - Salvar dados em arquivo (pickle)")
     print("11 - Carregar dados de arquivo (pickle)")
+    print("12 - Fechar conta / pagamento")
     print("0 - Sair")
     opcao = input("Escolha uma opção: ")
 
@@ -98,6 +99,15 @@ while True:
     elif opcao == "11":
         gerenciador, estoque = carregar_dados()
         print("Dados carregados com sucesso.")
+
+    elif opcao == "12":
+        comanda = gerenciador.buscar_comanda(int(input("Número da comanda: ")))
+        if comanda is None:
+            print("Comanda não encontrada.")
+        else:
+            comanda.fechar_conta(estoque)
+            gerenciador.fechar_comanda(comanda)
+            print("Pagamento realizado e comanda fechada.")
 
     elif opcao == "0":
         break
