@@ -2,11 +2,13 @@ from comanda import Comanda
 from gerenciadorComandas import GerenciadorComandas
 from Produto import Produto
 from Fila import Fila
-from gerador_faker import gerar_comandas_aleatorias, gerar_estoque_aleatorio
+from gerador_faker import gerar_comandas_aleatorias, gerar_estoque_aleatorio, popular_cardapio_fixo
 from pikle import salvar_dados, carregar_dados
+from Bebida import FormaPagamento
 
 gerenciador = GerenciadorComandas()
 estoque = Fila()
+popular_cardapio_fixo(estoque)  # já deixa o cardápio (refeições e bebidas) com preço, pronto pra demo
 
 # esse menu interativo é para garçons e gerente do restaurante para abrir ou fechar comandas
 # e controle de estoque do restaurante
@@ -106,9 +108,17 @@ while True:
         if comanda is None:
             print("Comanda não encontrada.")
         else:
-            comanda.fechar_conta(estoque)
-            gerenciador.fechar_comanda(comanda)
-            print("Pagamento realizado e comanda fechada.")
+            print("Formas de pagamento aceitas:")
+            for forma in FormaPagamento:
+                print(f"- {forma.value}")
+            forma_pagamento = input("Escolha a forma de pagamento: ")
+            valores_validos = [f.value for f in FormaPagamento]
+            if forma_pagamento not in valores_validos:
+                print("Forma de pagamento inválida.")
+            else:
+                comanda.fechar_conta(estoque, forma_pagamento)
+                gerenciador.fechar_comanda(comanda)
+                print("Pagamento realizado e comanda fechada.")
 
     elif opcao == "13":
         estoque.ver_cardapio()
