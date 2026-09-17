@@ -1,11 +1,17 @@
 class Produto:
-    def __init__(self, nome, preco_compra, preco_venda, data_compra, data_vencimento, quantidade):
+    def __init__(self, nome, preco_compra, preco_venda, data_compra, data_vencimento, quantidade, vendavel=True):
         self.__nome = nome
         self.__preco_compra = preco_compra
         self.__preco_venda = preco_venda
         self.__data_compra = data_compra
         self.__data_vencimento = data_vencimento
         self.__quantidade = quantidade
+        # vendavel=True: item pronto que aparece no cardápio (ex: Feijoada, Coca Cola)
+        # vendavel=False: matéria-prima/ingrediente de estoque, não aparece pro cliente
+        self.__vendavel = vendavel
+
+    def is_vendavel(self):
+        return self.__vendavel
 
     def get_nome(self):
         return self.__nome

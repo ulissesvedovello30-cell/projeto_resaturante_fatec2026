@@ -2,13 +2,15 @@ from comanda import Comanda
 from gerenciadorComandas import GerenciadorComandas
 from Produto import Produto
 from Fila import Fila
-from gerador_faker import gerar_comandas_aleatorias, gerar_estoque_aleatorio, popular_cardapio_fixo
+from gerador_faker import gerar_comandas_aleatorias, gerar_estoque_aleatorio, popular_pratos_fixo, popular_bebidas_estoque
 from pikle import salvar_dados, carregar_dados
 from Bebida import FormaPagamento
 
 gerenciador = GerenciadorComandas()
-estoque = Fila()
-popular_cardapio_fixo(estoque)  # já deixa o cardápio com preço
+estoque = Fila()  # ingredientes e bebidas comprados do fornecedor
+cardapio_pratos = Fila()  # preço dos pratos prontos, preparados com os ingredientes
+popular_bebidas_estoque(estoque)
+popular_pratos_fixo(cardapio_pratos)
 
 # esse menu interativo é para garçons e gerentes do restaurante para abrir ou fechar comandas
 # e controle de estoque do restaurante
@@ -22,7 +24,7 @@ while True:
     print("6 - Adicionar produto ao estoque")
     print("7 - Editar quantidade de estoque")
     print("8 - Listar estoque")
-    print("9 - Popular com dados aleatorios (Faker)")
+    print("9 - Geração de dados aleatórios para estoque (faker)")
     print("10 - Salvar dados em arquivo (pickle)")
     print("11 - Carregar dados de arquivo (pickle)")
     print("12 - Ver cardapio (produtos e precos)")
@@ -74,7 +76,7 @@ while True:
             if forma_pagamento not in valores_validos:
                 print("Forma de pagamento inválida.")
             else:
-                comanda.fechar_conta(estoque, forma_pagamento)
+                comanda.fechar_conta(estoque, cardapio_pratos, forma_pagamento)
                 gerenciador.fechar_comanda(comanda)
                 print("Pagamento realizado e comanda fechada.")
 
@@ -104,14 +106,17 @@ while True:
         print("Dados aleatorios gerados com sucesso.")
 
     elif opcao == "10":
-        salvar_dados(gerenciador, estoque)
+        salvar_dados(gerenciador, estoque, cardapio_pratos)
         print("Dados salvos em dados_restaurante.pkl")
 
     elif opcao == "11":
-        gerenciador, estoque = carregar_dados()
+        gerenciador, estoque, cardapio_pratos = carregar_dados()
         print("Dados carregados com sucesso.")
 
     elif opcao == "12":
+        print("Pratos:")
+        cardapio_pratos.ver_cardapio()
+        print("Bebidas:")
         estoque.ver_cardapio()
 
     elif opcao == "0":
