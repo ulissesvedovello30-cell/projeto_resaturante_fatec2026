@@ -30,6 +30,14 @@ class Fila:
             print(atual.get_dados().get_nome())
             atual = atual.get_apontar_o_proximo()
 
+    def ver_cardapio(self):
+        # mostra nome e preço de venda de cada produto disponível no estoque
+        atual = self.__head
+        while atual is not None:
+            produto = atual.get_dados()
+            print(f"{produto.get_nome()} - R$ {produto.get_preco_venda():.2f}")
+            atual = atual.get_apontar_o_proximo()
+
     def get_preco(self, nome_produto):
         # busca o preço de venda de um produto pelo nome, usado no fechamento da conta
         atual = self.__head

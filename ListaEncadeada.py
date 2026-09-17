@@ -42,7 +42,7 @@ class ListaEncadeada:
             atual = atual.get_apontar_o_proximo()
 
     def obter_todos(self):
-        # devolve os dados da lista como uma lista comum, só pra facilitar somas/relatórios
+        # devolve os dados da lista como uma lista comum, só pra facilitar somas
         itens = []
         atual = self.__head
         while atual is not None:

@@ -2,8 +2,8 @@ from comanda import Comanda
 from gerenciadorComandas import GerenciadorComandas
 from Produto import Produto
 from Fila import Fila
-from popular_dados import gerar_comandas_aleatorias, gerar_estoque_aleatorio
-from persistencia import salvar_dados, carregar_dados
+from gerador_faker import gerar_comandas_aleatorias, gerar_estoque_aleatorio
+from pikle import salvar_dados, carregar_dados
 
 gerenciador = GerenciadorComandas()
 estoque = Fila()
@@ -24,6 +24,7 @@ while True:
     print("10 - Salvar dados em arquivo (pickle)")
     print("11 - Carregar dados de arquivo (pickle)")
     print("12 - Fechar conta / pagamento")
+    print("13 - Ver cardapio (produtos e precos)")
     print("0 - Sair")
     opcao = input("Escolha uma opção: ")
 
@@ -108,6 +109,9 @@ while True:
             comanda.fechar_conta(estoque)
             gerenciador.fechar_comanda(comanda)
             print("Pagamento realizado e comanda fechada.")
+
+    elif opcao == "13":
+        estoque.ver_cardapio()
 
     elif opcao == "0":
         break
